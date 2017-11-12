@@ -26,13 +26,13 @@ STRETCH_FILES = $(sort $(patsubst $(IN_DIR)/%.png,$(STRETCH_DIR)/$(RES_DIR)/%.pn
 CHARGER_IMG_COUNT = $(words $(IN_FILES))
 CHARGER_IMG_STRETCH_HEIGHT = $(shell echo $$(( $(CHARGER_IMG_COUNT) * $(CHARGER_IMG_HEIGHT) )) )
 
-all: guard-RES_DIR guard-RES_FACTOR $(FINAL_DIR)/$(RES_DIR)/battery_scale.png
+all: guard-RES_DIR guard-RES_FACTOR $(FINAL_DIR)/$(RES_DIR)/lineage_battery_scale.png
 
 $(COMBINE_DIR)/$(RES_DIR)/combine.png: $(STRETCH_FILES)
 	mkdir -p $(COMBINE_DIR)/$(RES_DIR)
 	convert $^ -size $(CHARGER_IMG_WIDTH)x$(CHARGER_IMG_STRETCH_HEIGHT) -depth 8 -alpha deactivate -fx 'u[j%n]' $@
 
-$(FINAL_DIR)/$(RES_DIR)/battery_scale.png: $(COMBINE_DIR)/$(RES_DIR)/combine.png
+$(FINAL_DIR)/$(RES_DIR)/lineage_battery_scale.png: $(COMBINE_DIR)/$(RES_DIR)/combine.png
 	mkdir -p $(FINAL_DIR)/$(RES_DIR)
 	pngcrush -text b 'Frames' $(CHARGER_IMG_COUNT) $< $@
 
